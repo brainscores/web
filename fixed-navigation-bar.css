@@ -26,10 +26,10 @@
   margin: 0 auto;
 }
 .menu a, .menu a:visited {
-  color: #000000;
+  color: #33334b;
 }
 .menu a:hover, .menu a:target {
-  color: #000000;
+  color: #33334b;
 }
 .menu-items {
   display: inline-block;
@@ -43,7 +43,7 @@
   margin-left: 10px;
 }
 a.sitename, a:visited.sitename {
-  color: #000000;
+  color: #33334b;
 }
 .menu-items li {
   display: inline-block;
@@ -64,7 +64,7 @@ a.sitename, a:visited.sitename {
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center left;
-  color: #000000;
+  color: #33334b;
 }
 .show {
   background-image: url(assets/down-arrow-icon.png);
