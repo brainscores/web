@@ -79,8 +79,8 @@ a:visited, a:hover {
   position: relative;
   background: #33334b url("image_start.png") no-repeat center top fixed;
   background-size: initial;
-  min-height: 400px;
-  max-height: 400px;
+  min-height: 700px;
+  max-height: 700px;
  }
  .content_contact {
   position: relative;
@@ -108,7 +108,7 @@ a:visited, a:hover {
   text-align: left;
 }
 .some-related-articles h1 {
-  color: #3366cc;
+  color: #33334b;
   margin-top: 60px;
   text-transform: uppercase;
   text-align: left;
