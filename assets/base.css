@@ -11,6 +11,7 @@
 html {
   scroll-behavior: smooth;
 }
+
 body {
   font-family: 'Hind', sans-serif;
   background-color: #ffffff;
@@ -80,20 +81,24 @@ a:visited, a:hover {
   position: relative;
   background: #33334b url("image_start.png") no-repeat center top fixed;
   background-size: initial;
+  min-height: 500px;
+  max-height: 500px;
+ }
+ 
+ .content_contact {
+  position: relative;
+  background-size: initial;
+  background: #33334b repeat center top fixed;
   min-height: 400px;
   max-height: 400px;
  }
- .content_contact {
-  position: relative;
-  background: # no-repeat center center fixed;
-  background-size: cover;
- }
 .content_black {
   position: relative;
+  background-size: initial;
   min-height: 60px;
-  background: #ffffff no-repeat center center fixed;
-  background-size: cover;
+  background: #000000 no-repeat center center fixed;
  }
+ 
 .description, .some-related-articles {
   width: 90%;
   max-width: 960px;
