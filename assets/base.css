@@ -80,8 +80,8 @@ a:visited, a:hover {
   position: relative;
   background: #33334b url("image_start.png") no-repeat center top fixed;
   background-size: initial;
-  min-height: 700px;
-  max-height: 700px;
+  min-height: 800px;
+  max-height: 800px;
  }
  .content_contact {
   position: relative;
