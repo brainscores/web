@@ -1,1 +1,1 @@
-# brainscores.github.io
+# brainscores.ai
