@@ -1,0 +1,9 @@
+# Ignore database
+users.db
+
+# Ignore uploaded files
+uploads/
+
+# OS generated files
+.DS_Store
+Thumbs.db
