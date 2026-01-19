@@ -7,3 +7,4 @@ uploads/
 # OS generated files
 .DS_Store
 Thumbs.db
+email_config.php

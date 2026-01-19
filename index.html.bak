@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>BRAINSCORES  Augmented Radiology</title>
+<meta name="description" content="BRAINSCORES">
+<meta name="author" content="boris@bic.mni.mcgill.ca">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->  
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="fixed-navigation-bar.css">
+<link href='https://fonts.googleapis.com/css?family=Hind:400,500,600,300,700' rel='stylesheet' type='text/css'>
+<link rel="shortcut icon" href="http://sixrevisions.com/favicon.ico">
+</head>
+<body>
+
+
+
+
+<nav class="fixed-nav-bar">
+  <div id="menu" class="menu">
+    <a class="sitename" href="index.html">BRAINSCORES   </a>
+    <!-- Example responsive navigation menu  -->
+    <a class="show" href="#menu">Menu</a><a class="hide" href="#hidemenu">Menu</a>
+    <ul class="menu-items">
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#status">STATUS</a></li>
+      <li><a href="#tech">TECH</a></li>
+      <li><a href="#team">TEAM</a></li>
+	  <li><a href="#clinical">CLINICAL</a></li>
+      <li><a href="#partners">PARTNERS</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+	  <li><a href="upload.php">UPLOAD</a></li>
+  </ul>
+  </div>
+ 
+
+</nav>
+
+<section class="content">
+  <div class="description">
+  </div>
+</section>
+
+<section class="some-related-articles" id="about">
+  <h1 id="current" >ENHANCED BRAIN IMAGING</h1>
+   <table style="width:100%">
+		<tr>
+			<td style="width:350px; text-align:left">
+			<p>
+				Brainscores harnesses the power of AI and multimodal imaging to improve lesion detection, leading to more precise evaluations of complex neurological conditions.  </br>
+			</p>
+	   		<center> 
+		   		<img class="img-circle" src="assets/brain.png" width="800px" alt="brain">
+	  		 </center>
+	  		 </td>
+	 	</tr>
+	 </table>
+</section> 
+
+
+
+<section class="some-related-articles" id="status">
+<h1 id="current">WHERE WE'RE AT</h1>
+  <table style="width:100%">
+		<tr>
+			<td style="width:350px; text-align:left">
+			<p>
+			Our prototype is currently being developed, hand in hand with clinical and AI experts. We are confident to launch the useability trials in summer 2024. In the next 12 months, we will validate the platform with our partners. </br>
+			</p>
+			<center> 
+		   		<img class="img-circle" src="assets/brain3.png" width="600px" alt="brain">
+	  		 </center>
+			</td>	
+		</tr>
+ </table>
+</section>
+
+
+
+<section class="some-related-articles" id="tech">
+<h1 id="current">WHAT'S UNDER THE HOOD</h1>
+  <table style="width:100%">
+		<tr>
+		<td style="width:350px; text-align:left">
+		<p>
+		Our software provides an easy to use interface that leverages the following features: 
+		</p>	
+		<center> 
+		  	<img class="img-circle" src="assets/brain2.png" width="600px" alt="brain">
+	  	</center>
+		<ul> 
+			<li>Compatible with clinical MRI images and most common protocols</li> 
+			<li>Multi-Stream: Multimodal data processing (T1-weighted, FLAIR, Diffusion, Microstructure, Functional) </li> 
+			<li>Brain Scorer: Probability based image diagnostic</li> 
+			<li>AI-assist: AI technology to highlight significant deviations</li> 
+			<li>Case Reporter: Automated radiological report generator</li> 
+			<li>Neuro Navigation: Support to download and use our results with neurosurgery assisted hardware</li> 
+		</ul>
+	
+			</td>	
+		</tr>
+	</table>
+  </center>
+  </p>
+</section>
+
+
+
+
+
+<section class="some-related-articles" id="team">
+<h1 id="current">WHO WE ARE </h1>
+<p> 
+This project is being developed by the <a href="http://mica-mni.github.io" target="_blank">Multimodal Imaging and Connectome Analysis (MICA)</a> Lab and collaborators at the Montreal Neurological Institute and CHU St Justine. Our core team members are: 
+<br><br>
+</p>
+<table style="width:100%">
+		<tr>	
+			<td style="width:160px" valign="top">
+				<img class="img-circle" src="assets/bo.jpg" width="150px" alt="boris"></br>
+
+			</td>
+			<td style="width:320px" valign="top" align="left">
+					<p class="summary3">Boris Bernhardt, PhD</br> 
+					Chief Executive Officer</br> 
+					Associate Professor of Neurology and Neurosurgery</br> 
+					Montreal Neurological Institute</br> 
+					Co-founder, Project facilitator</br>
+				<a class="onblue" href="mailto:boris.bernhardt@mcgill.ca">email</a></p>
+			</td>
+
+    		<td style="width:160px" valign="top">
+    		 	<img class="img-circle" src="assets/raul.png" width="150px" alt="raul">
+    		</td> 
+    		<td style="width:320px" valign="top">
+    		 	   <p class="summary3">Raul Cruces, MD PhD</br>
+					Chief Neuroinformatics Officer</br> 
+					Montreal Neurological Institute</br> 
+					Co-founder</br> 
+			<a class="onblue" href="mailto:raul.rodriguezcruces@mcgill.ca">email</a></br>
+			</p>
+    		</td>
+  		</tr>
+
+		<tr>	
+			<td style="width:160px" valign="top">
+				<img class="img-circle" src="assets/Jordan.jpg" width="150px" alt="boris"></br>
+
+			</td>
+			<td style="width:320px" valign="top" align="left">
+					<p class="summary3">Jordan DeKraker, PhD</br> 
+					Chief AI Officer</br> 
+					Montreal Neurological Institute</br> 
+					Co-founder</br>
+				<a class="onblue" href="mailto:jordan.dekraker@brainscores.ai">email</a></p>
+			</td>
+
+    		<td style="width:160px" valign="top">
+    		 	<img class="img-circle" src="assets/Philippe.png" width="150px" alt="raul">
+    		</td> 
+    		<td style="width:320px" valign="top">
+    		 	   <p class="summary3">Philippe Benjamin-DuranceauD</br>
+					Chief Operations Officer</br> 
+					Co-founder</br> 
+			<a class="onblue" href="mailto:raul.rodriguezcruces@mcgill.ca">email</a></br>
+			</p>
+    		</td>
+  		</tr>
+	
+  		<tr>	
+    		<td style="width:160px" valign="top">
+    		 	<img class="img-circle" src="assets/jess.png" width="150px" alt="jessica">
+    		</td> 
+    		<td style="width:320px" valign="top">
+    		 	   <p class="summary3">Jessica Royer, PsyD PhD</br>
+					Data scientist</br>
+					Montreal Neurological Institute</br> 
+			<a class="onblue" href="mailto:jessica.royer@mcgill.ca">email</a></p>
+    		</td>	
+
+    		<td style="width:160px" valign="top">
+    		 	<img class="img-circle" src="assets/judy.png" width="150px" alt="judy">
+    		</td> 
+    		<td style="width:320px" valign="top">
+    		 	   <p class="summary3">Judy Chen</br>
+					Data scientist</br>
+					Montreal Neurological Institute</br> 
+					</br>		
+			</p>
+    		</td>	
+  		</tr>
+
+		<tr>	
+    		<td style="width:160px" valign="top">
+    		 	<img class="img-circle" src="assets/ella.png" width="150px" alt="ella">
+    		</td> 
+    		<td style="width:320px" valign="top">
+    		 	   <p class="summary3">Ella Sahlas</br>
+					Data scientist</br>
+					Montreal Neurological Institute</br> 
+					</br>		
+			</p>
+    		</td>	
+
+    		<td style="width:160px" valign="top">
+    		 	<img class="img-circle" src="assets/ian.png" width="150px" alt="ian">
+    		</td> 
+    		<td style="width:320px" valign="top">
+    		 	   <p class="summary3">Ian Goodall-Halliwell</br>
+					Software developer</br> 
+					Montreal Neurological Institute</br> 
+			</p>
+    		</td>	
+  		</tr>
+  		
+  		<tr>
+    		<td style="width:160px" valign="top">
+    		 	<img class="img-circle" src="assets/enning.jpg" width="150px" alt="enning">
+    		</td> 
+    		<td style="width:320px" valign="top">
+    		 	   <p class="summary3">Enning Yang</br>
+					Research Software developer</br> 
+					Montreal Neurological Institute</br>	
+			</p>
+    		</td>	
+  		</tr>
+
+	</table>
+<br>
+</section>
+
+<section class="some-related-articles" id="clinical">
+	<h1 id="current">CLINICAL ADVISERS </h1>
+
+<table style="width:100%">
+	<tr>		
+		<td style="width:160px" valign="top">
+				<img class="img-circle" src="assets/vicky.png" width="150px" alt="victoria"></br>
+			</td>
+			<td style="width:320px" valign="top" align="left">
+					<p class="summary3">Victoria Ros Castello, MD</br> 
+					Neurologist epileptologist</br> 
+					Hospital de la Santa Creu I Sant Pau</br> 
+					Barcelona, Spain</br>
+			</td>
+
+			<td style="width:160px" valign="top">
+				<img class="img-circle" src="assets/neda.png" width="150px" alt="neda">
+			</td> 
+			<td style="width:320px" valign="top">
+					<p class="summary3">Neda Ladbon-Bernasconi, MD PhD</br>
+					Neuroimaging of Epilepsy</br> 
+					Montreal Neurological Institute</br> 
+					Montreal, Quebec, Canada</br> 
+			</p>
+			</td>
+		</tr>
+		
+		<tr>	
+			<td style="width:160px" valign="top">
+				<img class="img-circle" src="assets/andrea.png" width="150px" alt="andrea">
+			</td> 
+			<td style="width:320px" valign="top">
+					<p class="summary3">Andrea Bernasconi, MD</br>
+					Neurologist epileptologist</br> 
+					Montreal Neurological Institute</br>
+					Montreal, Quebec, Canada</br> 		
+			</p>
+			</td>	
+
+			<td style="width:160px" valign="top">
+				<img class="img-circle" src="assets/anwar.png" width="150px" alt="anwar">
+			</td> 
+			<td style="width:320px" valign="top">
+					<p class="summary3">Anwar Garcia Santos, MD</br>
+					Chief Neurologist</br> 
+					ABC hospital</br>
+					Mexico City, Mexico</br>	
+			</p>
+			</td>	
+		</tr>
+		
+		<tr>	
+			<td style="width:160px" valign="top">
+				<img class="img-circle" src="assets/alex.jpg" width="150px" alt="alex"></br>
+			</td>
+			<td style="width:320px" valign="top" align="left">
+					<p class="summary3">Alexander Weil, MD </br> 
+					Associate Neurosurgeon</br> 
+					CHU St Justine</br>
+					Montreal, Quebec, Canada</br> 
+		</td>
+		</tr>
+
+</table>
+<br>
+</section>
+
+<section class="some-related-articles" id="partners">
+<h1 id="current">PARTNERS</h1>
+<p> 
+	<center>  	
+		<table style="width:700px">
+		<tr>
+		<td style="width:100px" valign="top" align="center">
+    		     <img class="img-circle" src="assets/hbhl_logo_en_black.png" width="200px" alt="hbhl_logo">
+		</td>
+		<td style="width:100px" valign="top" align="center">
+			<img src="assets/logo_mica_white.png" width="200px" alt="mica_logo">
+		</td>
+		<td style="width:100px" valign="top" align="center">
+			<img src="assets/neuro_final_400.jpg" width="200px" alt="neuro_logo">
+		</td>
+		
+		</tr>
+		</table> 
+	</center>  	
+<br>
+<br>
+</section> 
+
+
+<section class="some-related-articles" id="partners">
+    <h1 id="contact">CONTACT</h3>
+    <p class="summary">Multimodal Imaging and Connectome Analysis Lab</br>
+    Montreal Neurological Institute and Hospital</br>
+    3801 University Street, Montreal, QC, H3A 2B4, Canada</br>
+    <a class="onblue" href="mailto:boris.bernhardt@mcgill.ca;raul.rodriguezcruces@mcgill.ca">email</a></br>
+    Phone: 514 398 3579</br>
+    </p>
+  <br>
+</section>
+
+
+
+	
+</body>
+</html>
