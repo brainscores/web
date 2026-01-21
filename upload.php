@@ -70,11 +70,19 @@ if (isset($_GET['action']) && $_GET['action'] === 'chunk_upload') {
     $uploadedChunks = count(glob("$tempDir/chunk_*"));
     
     if ($uploadedChunks === $totalChunks) {
-        $finalPath = $upload_dir . $fileName;
+        // Secure Renaming Strategy
+        $pathInfo = pathinfo($fileName);
+        $extension = isset($pathInfo['extension']) ? '.' . $pathInfo['extension'] : '';
+        // Sanitize extension
+        $extension = preg_replace('/[^a-zA-Z0-9.]/', '', $extension);
         
-        if (file_exists($finalPath)) {
-            $pathInfo = pathinfo($finalPath);
-            $finalPath = $upload_dir . $pathInfo['filename'] . '_' . time() . '.' . $pathInfo['extension'];
+        $secureName = 'brainscores_' . bin2hex(random_bytes(8)) . $extension;
+        $finalPath = $upload_dir . $secureName;
+        
+        // Double check collision
+        while (file_exists($finalPath)) {
+            $secureName = 'brainscores_' . bin2hex(random_bytes(8)) . $extension;
+            $finalPath = $upload_dir . $secureName;
         }
         
         $outFile = fopen($finalPath, 'wb');
@@ -115,7 +123,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'chunk_upload') {
         file_put_contents($finalPath . '.json', json_encode($metadata, JSON_PRETTY_PRINT));
 
         // Email Notification
-        $to = 'enning2000@gmail.com';
+        $to = 'jordan.dekraker@brainscores.ai';
         $email_subject = 'New File Upload: ' . basename($finalPath);
         $message = "A new file has been uploaded to the pipeline.\n\n";
         $message .= "File Name: " . basename($finalPath) . "\n";
@@ -159,9 +167,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['auth_action'])) {
         if ($action === 'register') {
             $name = htmlspecialchars(trim($_POST['name']));
             $confirm_password = trim($_POST['confirm_password']);
+            $invite_code = trim($_POST['invite_code'] ?? '');
             
             if (empty($email) || empty($password) || empty($name)) {
                 $auth_error = "All fields are required.";
+            } elseif ($invite_code !== 'micabeta') {
+                $auth_error = "Invalid invite code.";
             } elseif ($password !== $confirm_password) {
                 $auth_error = "Passwords do not match.";
             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -708,6 +719,9 @@ input:focus, select:focus {
 
                         <label>Confirm Password</label>
                         <input type="password" name="confirm_password" required placeholder="••••••••">
+
+                        <label>Invite Code</label>
+                        <input type="text" name="invite_code" required placeholder="Enter invite code">
                         
                         <button type="submit" class="btn btn-outline">Sign Up</button>
                     </form>
