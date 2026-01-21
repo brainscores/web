@@ -76,12 +76,13 @@ if (isset($_GET['action']) && $_GET['action'] === 'chunk_upload') {
         // Sanitize extension
         $extension = preg_replace('/[^a-zA-Z0-9.]/', '', $extension);
         
-        $secureName = 'brainscores_' . bin2hex(random_bytes(8)) . $extension;
+        // Use uniqid which is available in older PHP versions
+        $secureName = 'brainscores_' . md5(uniqid(rand(), true)) . $extension;
         $finalPath = $upload_dir . $secureName;
         
         // Double check collision
         while (file_exists($finalPath)) {
-            $secureName = 'brainscores_' . bin2hex(random_bytes(8)) . $extension;
+            $secureName = 'brainscores_' . md5(uniqid(rand(), true)) . $extension;
             $finalPath = $upload_dir . $secureName;
         }
         
@@ -167,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['auth_action'])) {
         if ($action === 'register') {
             $name = htmlspecialchars(trim($_POST['name']));
             $confirm_password = trim($_POST['confirm_password']);
-            $invite_code = trim($_POST['invite_code'] ?? '');
+            $invite_code = isset($_POST['invite_code']) ? trim($_POST['invite_code']) : '';
             
             if (empty($email) || empty($password) || empty($name)) {
                 $auth_error = "All fields are required.";
