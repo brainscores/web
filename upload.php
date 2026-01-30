@@ -170,9 +170,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['auth_action'])) {
             $confirm_password = trim($_POST['confirm_password']);
             $invite_code = isset($_POST['invite_code']) ? trim($_POST['invite_code']) : '';
             
+            // Verify Invite Code from DB
+            $valid_code = false;
+            if (!empty($invite_code)) {
+                // Check if it's the legacy fail-safe code OR in the database
+                if ($invite_code === 'micabeta') {
+                    $valid_code = true; 
+                } else {
+                    $stmt_code = $pdo->prepare("SELECT id FROM invite_codes WHERE code = ? AND is_active = 1");
+                    $stmt_code->execute([$invite_code]);
+                    if ($stmt_code->fetch()) {
+                        $valid_code = true;
+                    }
+                }
+            }
+
             if (empty($email) || empty($password) || empty($name)) {
                 $auth_error = "All fields are required.";
-            } elseif ($invite_code !== 'micabeta') {
+            } elseif (!$valid_code) {
                 $auth_error = "Invalid invite code.";
             } elseif ($password !== $confirm_password) {
                 $auth_error = "Passwords do not match.";
@@ -185,8 +200,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['auth_action'])) {
                     $auth_error = "Email already registered.";
                 } else {
                     $hash = password_hash($password, PASSWORD_DEFAULT);
-                    $stmt = $pdo->prepare("INSERT INTO local_users (email, password_hash, name) VALUES (?, ?, ?)");
-                    if ($stmt->execute([$email, $hash, $name])) {
+                    $stmt = $pdo->prepare("INSERT INTO local_users (email, password_hash, name, invite_code_used) VALUES (?, ?, ?, ?)");
+                    if ($stmt->execute([$email, $hash, $name, $invite_code])) {
                         $_SESSION['authenticated'] = true;
                         $_SESSION['user_email'] = $email;
                         $_SESSION['user_name'] = $name;

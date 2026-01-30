@@ -15,7 +15,17 @@ function init_db() {
             password_hash TEXT NOT NULL,
             name TEXT,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            last_login DATETIME DEFAULT CURRENT_TIMESTAMP
+            last_login DATETIME DEFAULT CURRENT_TIMESTAMP,
+            invite_code_used TEXT
+        )");
+
+        // Table for dynamic invite codes
+        $pdo->exec("CREATE TABLE IF NOT EXISTS invite_codes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            code TEXT UNIQUE NOT NULL,
+            created_by TEXT,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            is_active INTEGER DEFAULT 1
         )");
 
         // Table for upload history
@@ -32,6 +42,13 @@ function init_db() {
             upload_duration_seconds INTEGER
         )");
         
+        // Attempt to add invite_code_used column if it doesn't exist (migration for existing DB)
+        try {
+            $pdo->exec("ALTER TABLE local_users ADD COLUMN invite_code_used TEXT");
+        } catch (PDOException $e) {
+            // Column likely already exists, ignore
+        }
+
         return $pdo;
     } catch (PDOException $e) {
         die("Database error: " . $e->getMessage());

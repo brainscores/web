@@ -3,11 +3,12 @@ session_start();
 require_once 'auth_config.php';
 
 // Admin Password Configuration
-$admin_password = 'micamica';
+// Hash for "zihua1@Default"
+$admin_password_hash = '$2y$12$n5Veu9Nk97fCKKK0F878jOpEzs6hhWo2JuHwTHmTASCd2bvfFinei';
 
 // Handle Login
 if (isset($_POST['admin_password'])) {
-    if ($_POST['admin_password'] === $admin_password) {
+    if (password_verify($_POST['admin_password'], $admin_password_hash)) {
         $_SESSION['admin_dashboard_auth'] = true;
     } else {
         $error = "Invalid admin password.";
@@ -57,9 +58,64 @@ if (!isset($_SESSION['admin_dashboard_auth']) || $_SESSION['admin_dashboard_auth
 
 $pdo = init_db();
 
+// Handle Cleanup Action
+$cleanup_message = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'cleanup_server') {
+    try {
+        // 1. Clean DB
+        $pdo->exec("DELETE FROM local_users");
+        $pdo->exec("DELETE FROM uploads");
+        $pdo->exec("DELETE FROM sqlite_sequence WHERE name='local_users'");
+        $pdo->exec("DELETE FROM sqlite_sequence WHERE name='uploads'");
+        $pdo->exec("VACUUM");
+
+        // 2. Clean Uploads Folder
+        if (file_exists('/var/www/brainscoresai/upload/')) {
+            $upload_dir = '/var/www/brainscoresai/upload/';
+        } else {
+            $upload_dir = __DIR__ . '/uploads/';
+        }
+        
+        $deleted_files = 0;
+        if (file_exists($upload_dir)) {
+            $files = glob($upload_dir . '*');
+            foreach ($files as $file) {
+                if (is_file($file)) {
+                    unlink($file);
+                    $deleted_files++;
+                }
+            }
+        }
+        
+        $cleanup_message = "Cleanup successful! Database cleared and $deleted_files files deleted.";
+    } catch (Exception $e) {
+        $cleanup_message = "Error during cleanup: " . $e->getMessage();
+    }
+}
+
+// Handle Add Invite Code
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_invite_code') {
+    $new_code = trim($_POST['new_code']);
+    if (!empty($new_code)) {
+        try {
+            $stmt = $pdo->prepare("INSERT INTO invite_codes (code) VALUES (?)");
+            $stmt->execute([$new_code]);
+            $cleanup_message = "Invite code '$new_code' added successfully.";
+        } catch (Exception $e) {
+            $cleanup_message = "Error adding invite code: " . $e->getMessage();
+        }
+    } else {
+        $cleanup_message = "Invite code cannot be empty.";
+    }
+}
+
 // Fetch Users
 $stmt_users = $pdo->query("SELECT * FROM local_users ORDER BY created_at DESC");
 $users = $stmt_users->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch Invite Codes
+$stmt_codes = $pdo->query("SELECT * FROM invite_codes ORDER BY created_at DESC");
+$invite_codes = $stmt_codes->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch Uploads
 $stmt_uploads = $pdo->query("SELECT * FROM uploads ORDER BY uploaded_at DESC");
@@ -113,6 +169,42 @@ $uploads = $stmt_uploads->fetchAll(PDO::FETCH_ASSOC);
 <div class="admin-container">
     <h1>Admin Dashboard</h1>
     <p>Logged in as Administrator</p>
+    
+    <?php if (!empty($cleanup_message)): ?>
+        <div style="background: #e8f5e9; border: 1px solid #c8e6c9; color: #2e7d32; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+            <?php echo htmlspecialchars($cleanup_message); ?>
+        </div>
+    <?php endif; ?>
+
+    <h2>Invite Codes</h2>
+    <div style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border: 1px solid #eee; border-radius: 4px;">
+        <form method="post" style="display: flex; gap: 10px; align-items: center;">
+            <input type="hidden" name="action" value="add_invite_code">
+            <input type="text" name="new_code" placeholder="Enter new invite code" required style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; flex-grow: 1; max-width: 300px;">
+            <input type="submit" value="Add Code" style="background: #333; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+        </form>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Status</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($invite_codes as $code): ?>
+            <tr>
+                <td><?php echo $code['id']; ?></td>
+                <td><span class="badge"><?php echo htmlspecialchars($code['code']); ?></span></td>
+                <td><?php echo $code['is_active'] ? 'Active' : 'Inactive'; ?></td>
+                <td><?php echo $code['created_at']; ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
     <h2>Registered Users</h2>
     <table>
@@ -121,6 +213,7 @@ $uploads = $stmt_uploads->fetchAll(PDO::FETCH_ASSOC);
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Invite Code Used</th>
                 <th>Created At</th>
                 <th>Last Login</th>
             </tr>
@@ -131,6 +224,7 @@ $uploads = $stmt_uploads->fetchAll(PDO::FETCH_ASSOC);
                 <td><?php echo $user['id']; ?></td>
                 <td><?php echo htmlspecialchars($user['name']); ?></td>
                 <td><?php echo htmlspecialchars($user['email']); ?></td>
+                <td><?php echo htmlspecialchars($user['invite_code_used'] ?? ''); ?></td>
                 <td><?php echo $user['created_at']; ?></td>
                 <td><?php echo $user['last_login']; ?></td>
             </tr>
@@ -169,6 +263,15 @@ $uploads = $stmt_uploads->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <div style="margin-top: 50px; padding: 20px; border: 1px solid #ffcdd2; background-color: #ffebee; border-radius: 5px;">
+        <h2 style="color: #c62828; margin-top: 0;">Danger Zone</h2>
+        <p>This action will delete <strong>ALL</strong> users and <strong>ALL</strong> uploaded files. This cannot be undone.</p>
+        <form method="post" onsubmit="return confirm('ARE YOU SURE? This will wipe all data and files permanently.');">
+            <input type="hidden" name="action" value="cleanup_server">
+            <input type="submit" value="Reset Server & Delete All Data" style="background-color: #c62828; color: white; border: none; padding: 10px 20px; cursor: pointer;">
+        </form>
+    </div>
 </div>
 
 </body>
