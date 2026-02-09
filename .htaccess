@@ -1,0 +1,12 @@
+# Block access to git directory
+<DirectoryMatch "^/.*/\.git/">
+    Require all denied
+</DirectoryMatch>
+
+# Block access to specific sensitive files
+<FilesMatch "^(users\.db|\.env|composer\.lock|package-lock\.json)$">
+    Require all denied
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes
