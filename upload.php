@@ -173,15 +173,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['auth_action'])) {
             // Verify Invite Code from DB
             $valid_code = false;
             if (!empty($invite_code)) {
-                // Check if it's the legacy fail-safe code OR in the database
-                if ($invite_code === 'micabeta') {
-                    $valid_code = true; 
-                } else {
-                    $stmt_code = $pdo->prepare("SELECT id FROM invite_codes WHERE code = ? AND is_active = 1");
-                    $stmt_code->execute([$invite_code]);
-                    if ($stmt_code->fetch()) {
-                        $valid_code = true;
-                    }
+                // Check if it's in the database
+                $stmt_code = $pdo->prepare("SELECT id FROM invite_codes WHERE code = ? AND is_active = 1");
+                $stmt_code->execute([$invite_code]);
+                if ($stmt_code->fetch()) {
+                    $valid_code = true;
                 }
             }
 
