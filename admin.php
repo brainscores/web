@@ -3,8 +3,8 @@ session_start();
 require_once 'auth_config.php';
 
 // Admin Password Configuration
-// Hash for "zihua1@Default"
-$admin_password_hash = '$2y$12$n5Veu9Nk97fCKKK0F878jOpEzs6hhWo2JuHwTHmTASCd2bvfFinei';
+// Hash for Admin Password
+$admin_password_hash = '$2y$12$FLy0jXy1oSYUvVo1G8.aqeJ2sGY3tG3yGnVDmY0ez38d4r5C1H8ly';
 
 // Handle Login
 if (isset($_POST['admin_password'])) {
